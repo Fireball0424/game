@@ -1,0 +1,151 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="PSPad editor, www.pspad.com">
+  <title></title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script type="text/javascript" id="MathJax-script" async
+	  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+	</script>
+	<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  <style>
+    body{
+        background-color:lightyellow;
+    }
+    header{
+        text-align:center;
+        font-size:300%;
+        background-color:yellow;
+        padding:5%;
+    }
+    footer{
+        text-align:center;
+        font-size:80%;
+        background-color:yellow;
+        padding:2%;
+    }
+    #d1{
+		padding:2%;
+		border: 2px solid yellow;
+		height: 50%;
+	}
+    #d2{
+    	height:20%
+    	padding:2px;
+		border: 2px solid yellow;
+	}
+	#d3{
+		height:15%;
+		padding:2px;
+		border: 2px solid yellow;
+		line-height:80%;
+	}
+	.container{
+		text-align:center;
+	}
+	#img1{
+		position:fixed;
+		left:0px;
+		top:0px;
+		z-index:-1;
+		width:100%;
+		height:100%;
+		opacity:0.3;
+	}
+  </style>
+  <script>
+  var score=0;
+  var best_score=0;
+  var now_time=10;
+  var flag=0;
+  var num=10;
+  var x=-1;
+  var last = -1;
+  function end(clock){
+  	window.alert("Your score is " + score + " ,press start button to try again >_<");
+  	clearInterval(clock);
+  	flag=0;
+  	now_time=10;
+	best_score=Math.max(score,best_score);
+	score=0;
+	p2.innerHTML="Score: " + score + " /Best score: " + best_score;
+  }
+  function start(){
+  	flag++;
+  	var timer = document.querySelector("#p1");
+  	if(flag == 1) var clock = setInterval(function(){
+    	now_time-- ;
+    	if(now_time < 0 ){
+			if(flag == 1) end(clock);
+		}
+	else flag = 1;
+   	 timer.innerText = "Count Down: " + now_time;}, 1000);
+  }
+  
+  function Random(){
+  		while(last == x){
+		  	x = Math.floor(Math.random() * num);
+		}
+		if(x == 0) d3.innerHTML="\\(∫sinxdx\\)";
+		if(x == 1) d3.innerHTML="\\(∫cosxdx\\)"; 
+		if(x == 2) d3.innerHTML="\\(∫sec^{2}xdx\\)";
+		if(x == 3) d3.innerHTML="\\(∫secxtanxdx\\)";
+		if(x == 4) d3.innerHTML="\\(∫e^{x}dx\\)";
+		if(x == 5) d3.innerHTML="\\(∫\\frac{a^x}{lna}dx\\)";
+		if(x == 6) d3.innerHTML="\\(\\int \\frac{1}{\\sqrt{1-x^{2}}}dx\\)";
+		if(x == 7) d3.innerHTML="\\(\\int \\frac{-1}{\\sqrt{1-x^{2}}}dx\\)";
+		if(x == 8) d3.innerHTML="\\(\\int \\frac{1}{1+x^{2}}dx\\)";
+		if(x == 9) d3.innerHTML="\\(\\int \\frac{1}{x}dx \\)";
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub,"#d3"]);
+
+	}
+	function check(res){
+		if(res == x){
+			if(flag == 1){
+				score++;
+				p2.innerHTML="Score: " + score + " /Best score: " + best_score;
+				last=x;
+				Random();
+			}
+		}
+	}
+  </script>
+  </head>
+  <body>
+        <header>
+        	我爪我驕傲
+        </header>
+        <img src="https://www.brothers.tw/images/new_index/team1.png" id="img1">
+        <center>
+        <div id="d1">
+        <div id="d3" class="container">
+        	
+        </div>
+        <input type="button" value="-cosx" onclick="check(0);" style="width:100px;height:60px;"> 
+		<input type="button" value="sinx" onclick="check(1);"style="width:100px;height:60px;">
+		<input type="button" value="tanx" onclick="check(2);"style="width:100px;height:60px;">
+		<input type="button" value="secx" onclick="check(3);"style="width:100px;height:60px;"> <br><br> 
+		<input type="button" value="e^x" onclick="check(4);"style="width:100px;height:60px;"> 
+		<input type="button" value="a^x" onclick="check(5);"style="width:100px;height:60px;"> 
+		<input type="button" value="ln|x|" onclick="check(9);"style="width:100px;height:60px;"><br><br>
+		<input type="button" value="arcsinx" onclick="check(6);"style="width:100px;height:60px;"> 
+		<input type="button" value="arccosx" onclick="check(7);"style="width:100px;height:60px;"> 
+		<input type="button" value="arctanx" onclick="check(8);"style="width:100px;height:60px;"> <br><br>
+        </div>
+        
+        <div id="d2">
+            <input type="button" value="click me to start" onclick=	"start(); Random();" id="btn1">
+            <p id="p1"> Count Down: 10</p>
+            <p id="p2"> Score: 0 /Best score: 0</p>
+        </div>
+        <p id="bug"></p>
+		</center>
+        <footer>
+        	Program Designer:Fireball <br>
+			version 3
+        </footer>
+  </body>
+</html>
